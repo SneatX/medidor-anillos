@@ -5,8 +5,6 @@
 Aplicación web que encuentra la **talla de un anillo** con la pantalla del celular. No hay que ir a la joyería ni tener un medidor de anillos.
 Se pone un anillo sobre la pantalla, o se mide el dedo con un hilo, y la app devuelve la talla (T1–T36), el diámetro en mm y la equivalencia USA.
 
-**App en línea:** https://sneatx.github.io/medidor-anillos/
-
 | Inicio | Medir con anillo | Resultado |
 | :---: | :---: | :---: |
 | ![Inicio](docs/img/01-inicio.png) | ![Anillo](docs/img/03-anillo.png) | ![Resultado](docs/img/04-resultado.png) |
@@ -44,7 +42,6 @@ Desarrollar una aplicación con **HTML, CSS, JavaScript y un framework (React)**
 | Empaquetador / servidor dev | Vite (+ `@vitejs/plugin-react` 6.1.2) | 8.3.3 |
 | Pruebas | Vitest + Testing Library (React 16.3.3) + jsdom 29.1.1 | 5.0.3 |
 | Linter | Oxlint | 1.87.0 |
-| CI/CD | GitHub Actions → GitHub Pages | — |
 | Entorno | Node.js | 22 |
 
 No usa servidor ni base de datos: es una SPA estática. Los datos del usuario (calibración y tallas guardadas) se quedan en su propio dispositivo (`localStorage`).
@@ -124,7 +121,7 @@ La aplicación:
 | RNF07 | Accesibilidad | Etiquetas ARIA, `aria-live` en la lectura de talla, foco visible, contraste alto y respeto a `prefers-reduced-motion` |
 | RNF08 | Privacidad | Sin registro y sin enviar datos: todo se guarda en el dispositivo |
 | RNF09 | Mantenibilidad | Lógica pura separada de la UI y cubierta por pruebas automáticas |
-| RNF10 | Disponibilidad | Despliegue automático en GitHub Pages con CI que corre lint, pruebas y build |
+| RNF10 | Portabilidad | Corre en local con un solo comando (`npm run dev`) y no depende de servidores externos |
 | RNF11 | Idioma | Interfaz en español y números con coma decimal (es‑CO) |
 
 ---
@@ -212,8 +209,7 @@ medidor-anillos/
 │   ├── hooks/        useElementSize.js · useHoldRepeat.js · haptics.js
 │   ├── components/   Stepper · ActionBar · BottomNav · SizeReadout · CalibrationBanner · Icon
 │   └── screens/      Home · Calibrate · RingMeasure · FingerMeasure · Result · SizeTable · Saved
-├── docs/img/         capturas y mapas de thumb zone
-└── .github/workflows/deploy.yml
+└── docs/img/         capturas y mapas de thumb zone
 ```
 
 Decisiones de implementación pensadas en el usuario:
@@ -270,7 +266,7 @@ npm test
 | `src/lib/calibration.test.js` | Unitarias | Que se guarde y recupere la calibración, que se invalide al cambiar el zoom, que ignore datos corruptos y que persistan las tallas guardadas |
 | `src/App.test.jsx` | Integración | Los flujos completos: hilo → resultado → guardar; anillo → pide calibrar → círculo → salto de talla; tabla → búsqueda |
 
-**Resultado:** 24 pruebas aprobadas. Se ejecutan en cada *push* en GitHub Actions junto con el lint y el build.
+**Resultado:** 24 pruebas aprobadas.
 
 ### Casos de prueba manuales
 
@@ -342,5 +338,3 @@ npm run preview    # sirve el build
 ```
 
 **Para probar en el celular durante el desarrollo:** ejecuta `npm run dev -- --host` y abre la IP que muestra la consola, con el celular en la misma red Wi‑Fi.
-
-**Despliegue:** cada *push* a `main` ejecuta lint, pruebas y build, y publica en GitHub Pages (`.github/workflows/deploy.yml`).
