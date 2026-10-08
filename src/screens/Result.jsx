@@ -140,8 +140,8 @@ export default function Result({ result, calibrated, onSave, onAgain, onTable, o
           </div>
         )}
         <ActionBar onBack={onAgain} backLabel="Ajustar">
-          <button type="button" className="btn btn-soft" onClick={share}>
-            <Icon name="share" size={20} /> Compartir
+          <button type="button" className="btn btn-soft btn-square" onClick={share} aria-label="Compartir talla">
+            <Icon name="share" size={22} />
           </button>
           <button type="button" className="btn btn-primary" onClick={onHome}>
             Listo

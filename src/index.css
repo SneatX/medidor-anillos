@@ -1222,3 +1222,9 @@ strong {
   fill: #3a2c12;
   font-weight: 700;
 }
+
+.btn-square {
+  width: var(--tap);
+  padding: 0;
+  flex-shrink: 0;
+}
